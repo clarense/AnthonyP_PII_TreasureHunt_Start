@@ -5,17 +5,18 @@ namespace Vigenere.Library
 {
     public class VigenereCode
     {
-        private string codeWord;
-        private int salt;
-        private const string fullAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        private string codeWord; //frase a encriptar
+        private int salt; //variable que da los espacios siguientes
+        private const string fullAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
         public VigenereCode(string codeWord, int salt)
         {
             this.codeWord = codeWord;
+            this.salt = salt; // no estaba asignada  la variable    
         }
         public string Encrypt(string encryptedPrhase)
         {
             StringBuilder decrypted = new StringBuilder();
-            for (int i = 0; i <= encryptedPrhase.Length; i++)
+            for (int i = 0; i <= encryptedPrhase.Length - 1; i++) //faltaba restarle -1
             {
                 //Se obtiene la letra a encriptar
                 string valueToEncrypt = encryptedPrhase[i].ToString().ToUpper();
@@ -26,14 +27,14 @@ namespace Vigenere.Library
                 //Se encripta el valor aplicando el desplazamiento
                 string encrypted = Shift(keyPosition + salt, valueToEncrypt);
                 //Se agrega el resultado a la cadena encriptada
-                decrypted.Append(valueToEncrypt);
+                decrypted.Append(encrypted);
             }
             return decrypted.ToString();
         }
         public string Decrypt(string encryptedPrhase)
         {
             StringBuilder decrypted = new StringBuilder();
-            for (int i = 0; i <= encryptedPrhase.Length; i++)
+            for (int i = 0; i <= encryptedPrhase.Length - 1; i++) //falto restar
             {
                 //Se obtiene la letra a desencriptar
                 string valueToDecrypt = encryptedPrhase[i].ToString().ToUpper();
@@ -44,7 +45,7 @@ namespace Vigenere.Library
                 //Se desencripta el valor invirtiendo el desplazamiento
                 string decryptedValue = RevertShift(keyPosition + salt, valueToDecrypt);
                 //Se agrega el resultado a la cadena desencriptada
-                decrypted.Append(decryptedValue);
+                decrypted.Append(decryptedValue); //pasaba mal el valor
             }
             return decrypted.ToString();
         }
@@ -79,10 +80,13 @@ namespace Vigenere.Library
         /// <returns></returns>
         private int GetLetterNumber(string letter)
         {
-            int result = 0;
+            int result = 0; //faltaba iterar
             foreach (char c in fullAlphabet)
-            {
-                if (c.ToString() == letter)
+            {               
+                if (c.ToString() != l   etter.ToUpper()){ //paso todo a mayus
+                    result++;
+                } 
+                else
                 {
                     break;
                 }
