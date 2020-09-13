@@ -1,4 +1,4 @@
-using Vigenere.Library;
+    using Vigenere.Library;
 using NUnit.Framework;
 
 namespace Test.Library
